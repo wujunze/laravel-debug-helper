@@ -15,6 +15,7 @@
             "email": "itwujunze@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
         "illuminate/support": "5.*",
         "laravel/framework": "5.*"
