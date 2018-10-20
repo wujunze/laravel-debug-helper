@@ -17,7 +17,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "illuminate/support": "5.*",
+        "php": "^7.1",
         "laravel/framework": "5.*"
     },
     "autoload": {
@@ -34,5 +34,12 @@
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^7.4",
         "codedungeon/phpunit-result-printer": "^0.23.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WuJunze\\LaravelDebugHelper\\Providers\\ServiceProvider"
+            ]
+        }
     }
 }
