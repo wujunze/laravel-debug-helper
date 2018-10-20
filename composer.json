@@ -15,5 +15,23 @@
             "email": "itwujunze@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/support": "5.*",
+        "laravel/framework": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WuJunze\\LaravelDebugHelper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WuJunze\\LaravelDebugHelper\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.2",
+        "phpunit/phpunit": "^7.4",
+        "codedungeon/phpunit-result-printer": "^0.23.3"
+    }
 }
