@@ -1,0 +1,19 @@
+{
+    "name": "wujunze/laravel-debug-helper",
+    "description": "Laravel package to help debug",
+    "type": "library",
+    "keywords": [
+        "Laravel",
+        "debug-helper",
+        "sql",
+        "logging"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wujunze",
+            "email": "itwujunze@gmail.com"
+        }
+    ],
+    "require": {}
+}
