@@ -14,8 +14,8 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app['config']->get('app.debug')) {
             // if any of logging type is enabled we will listen database to get all
             // executed queries
-            if ($this->app['config']->get('sql_logger.log_queries') ||
-                $this->app['config']->get('sql_logger.log_slow_queries')) {
+            if ($this->app['config']->get('debug_helper.debug_sql.log_queries') ||
+                $this->app['config']->get('debug_helper.debug_sql.log_slow_queries')) {
                 // create logger class
                 $logger = new DebugSqlService($this->app);
 
