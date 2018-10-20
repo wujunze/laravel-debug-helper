@@ -3,7 +3,6 @@ Laravel package to help debug
 This package allows you to log SQL queries (and slow SQL queries) to log file in Laravel framework
 
 [![Build Status](https://travis-ci.org/wujunze/laravel-debug-helper.svg?branch=master)](https://travis-ci.org/wujunze/laravel-debug-helper)
-[![codecov.io](http://codecov.io/github/wujunze/laravel-debug-helper/coverage.svg?branch=master)](http://codecov.io/github/wujunze/laravel-debug-helper?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/wujunze/laravel-debug-helper/v/stable.svg)](https://packagist.org/packages/wujunze/laravel-debug-helper)
 [![Licence](https://poser.pugx.org/wujunze/laravel-debug-helper/license.svg)](https://packagist.org/packages/wujunze/laravel-debug-helper)
 [![Total Downloads](https://poser.pugx.org/wujunze/laravel-debug-helper/downloads.svg)](https://packagist.org/packages/wujunze/laravel-debug-helper)
