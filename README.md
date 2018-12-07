@@ -52,7 +52,7 @@ php artisan vendor:publish
 ```
     
 and choose the number matching `"WuJunze\LaravelDebugHelper\Providers\ServiceProvider"` provider.
-This operation will create config file in `config/sql_loger.php`.
+This operation will create config file in `config/debug_helper.php`.
 By default you should not edit published file because all the settings are loaded from `.env` file by default.
 
 For Lumen you should skip this step. 
