@@ -3,6 +3,8 @@
 namespace WuJunze\LaravelDebugHelper\Services;
 
 
+use Illuminate\Support\Arr;
+
 class DebugSqlService implements DebugHelperInterface
 {
 
@@ -78,13 +80,13 @@ class DebugSqlService implements DebugHelperInterface
     {
         $this->app                = $app;
         $sqlConfig                   = $this->app['config']->get('debug_helper.debug_sql');
-        $this->logStatus          = array_get($sqlConfig, 'log_queries');
-        $this->slowLogStatus      = array_get($sqlConfig, 'log_slow_queries');
-        $this->slowLogTime        = array_get($sqlConfig, 'slow_queries_min_exec_time');
-        $this->override           = array_get($sqlConfig, 'override_log');
-        $this->directory          = rtrim(array_get($sqlConfig, 'directory'), '\\/');
-        $this->convertToSeconds   = array_get($sqlConfig, 'convert_to_seconds');
-        $this->separateConsoleLog = array_get($sqlConfig, 'log_console_to_separate_file');
+        $this->logStatus          = Arr::get($sqlConfig, 'log_queries');
+        $this->slowLogStatus      = Arr::get($sqlConfig, 'log_slow_queries');
+        $this->slowLogTime        = Arr::get($sqlConfig, 'slow_queries_min_exec_time');
+        $this->override           = Arr::get($sqlConfig, 'override_log');
+        $this->directory          = rtrim(Arr::get($sqlConfig, 'directory'), '\\/');
+        $this->convertToSeconds   = Arr::get($sqlConfig, 'convert_to_seconds');
+        $this->separateConsoleLog = Arr::get($sqlConfig, 'log_console_to_separate_file');
     }
 
     /**

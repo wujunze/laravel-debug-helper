@@ -1,5 +1,5 @@
 vendor
 .idea
-.composer.lock
+composer.lock
 coverage
 clover.xml
