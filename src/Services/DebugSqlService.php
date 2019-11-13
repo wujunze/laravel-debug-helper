@@ -1,13 +1,20 @@
-<?php
+<?php declare(strict_types=1);
+/**
+ *
+ * This file is part of the package.
+ *
+ * (c) Panda <itwujunze@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace WuJunze\LaravelDebugHelper\Services;
-
 
 use Illuminate\Support\Arr;
 
 class DebugSqlService implements DebugHelperInterface
 {
-
     /**
      * Application
      *
@@ -78,14 +85,14 @@ class DebugSqlService implements DebugHelperInterface
      */
     public function __construct($app)
     {
-        $this->app                = $app;
-        $sqlConfig                   = $this->app['config']->get('debug_helper.debug_sql');
-        $this->logStatus          = Arr::get($sqlConfig, 'log_queries');
-        $this->slowLogStatus      = Arr::get($sqlConfig, 'log_slow_queries');
-        $this->slowLogTime        = Arr::get($sqlConfig, 'slow_queries_min_exec_time');
-        $this->override           = Arr::get($sqlConfig, 'override_log');
-        $this->directory          = rtrim(Arr::get($sqlConfig, 'directory'), '\\/');
-        $this->convertToSeconds   = Arr::get($sqlConfig, 'convert_to_seconds');
+        $this->app = $app;
+        $sqlConfig = $this->app['config']->get('debug_helper.debug_sql');
+        $this->logStatus = Arr::get($sqlConfig, 'log_queries');
+        $this->slowLogStatus = Arr::get($sqlConfig, 'log_slow_queries');
+        $this->slowLogTime = Arr::get($sqlConfig, 'slow_queries_min_exec_time');
+        $this->override = Arr::get($sqlConfig, 'override_log');
+        $this->directory = rtrim(Arr::get($sqlConfig, 'directory'), '\\/');
+        $this->convertToSeconds = Arr::get($sqlConfig, 'convert_to_seconds');
         $this->separateConsoleLog = Arr::get($sqlConfig, 'log_console_to_separate_file');
     }
 
@@ -105,7 +112,7 @@ class DebugSqlService implements DebugHelperInterface
         try {
             list($sqlQuery, $execTime) = $this->getSqlQuery($query, $bindings, $time);
         } catch (\Exception $e) {
-            $this->app->log->notice("SQL query {$queryNr} cannot be bound: " . $query);
+            $this->app->log->notice("SQL query {$queryNr} cannot be bound: ".$query);
 
             return;
         }
@@ -131,13 +138,16 @@ class DebugSqlService implements DebugHelperInterface
 
         // save normal query to file if enabled
         if ($this->shouldLogQuery()) {
-            $this->saveLog($data, date('Y-m-d') . $filePrefix . '-log.sql',
-                ($queryNr == 1 && (bool) $this->override));
+            $this->saveLog(
+                $data,
+                date('Y-m-d').$filePrefix.'-log.sql',
+                ($queryNr == 1 && (bool) $this->override)
+            );
         }
 
         // save slow query to file if enabled
         if ($this->shouldLogSlowQuery($execTime)) {
-            $this->saveLog($data, date('Y-m-d') . $filePrefix . '-slow-log.sql');
+            $this->saveLog($data, date('Y-m-d').$filePrefix.'-slow-log.sql');
         }
     }
 
@@ -172,8 +182,11 @@ class DebugSqlService implements DebugHelperInterface
      */
     protected function saveLog($data, $fileName, $override = false)
     {
-        file_put_contents($this->directory . DIRECTORY_SEPARATOR . $fileName,
-            $data, $override ? 0 : FILE_APPEND);
+        file_put_contents(
+            $this->directory.DIRECTORY_SEPARATOR.$fileName,
+            $data,
+            $override ? 0 : FILE_APPEND
+        );
     }
 
     /**
@@ -187,11 +200,11 @@ class DebugSqlService implements DebugHelperInterface
      */
     protected function getLogData($queryNr, $query, $execTime)
     {
-        $time = $this->convertToSeconds ? ($execTime / 1000.0) . '.s'
-            : $execTime . 'ms';
+        $time = $this->convertToSeconds ? ($execTime / 1000.0).'.s'
+            : $execTime.'ms';
 
-        return '/* Query ' . $queryNr . ' - ' . date('Y-m-d H:i:s') . ' [' .
-            $time . ']' . "  */" . PHP_EOL . $query . ';' . PHP_EOL;
+        return '/* Query '.$queryNr.' - '.date('Y-m-d H:i:s').' ['.
+            $time.']'."  */".PHP_EOL.$query.';'.PHP_EOL;
     }
 
     /**
@@ -209,7 +222,7 @@ class DebugSqlService implements DebugHelperInterface
         if (version_compare($this->getVersion(), '5.2.0', '>=')) {
             $bindings = $query->bindings;
             $execTime = $query->time;
-            $query    = $query->sql;
+            $query = $query->sql;
         }
 
         // need to format bindings properly
@@ -222,7 +235,7 @@ class DebugSqlService implements DebugHelperInterface
         }
 
         // now we create full SQL query - in case of failure, we log this
-        $query   = str_replace(['%', '?', "\\n"], ['%%', "'%s'", ' '], $query);
+        $query = str_replace(['%', '?', "\\n"], ['%%', "'%s'", ' '], $query);
         $fullSql = vsprintf($query, $bindings);
 
         return [$fullSql, $execTime];
@@ -239,7 +252,7 @@ class DebugSqlService implements DebugHelperInterface
 
         // for Lumen we need to do extra things to get Lumen version
         if (mb_strpos($version, 'Lumen') !== false) {
-            $p  = mb_strpos($version, '(');
+            $p = mb_strpos($version, '(');
             $p2 = mb_strpos($version, ')');
             if ($p !== false && $p2 !== false) {
                 $version = trim(mb_substr($version, $p + 1, $p2 - $p - 1));
@@ -257,10 +270,9 @@ class DebugSqlService implements DebugHelperInterface
      */
     protected function createLogDirectoryIfNeeded($queryNr, $execTime)
     {
-        if ($queryNr == 1 && ! file_exists($this->directory) &&
+        if ($queryNr == 1 && !file_exists($this->directory) &&
             ($this->shouldLogQuery() || $this->shouldLogSlowQuery($execTime))) {
             mkdir($this->directory, 0777, true);
         }
     }
-
 }
