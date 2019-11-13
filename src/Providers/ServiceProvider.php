@@ -13,6 +13,8 @@ namespace WuJunze\LaravelDebugHelper\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use WuJunze\LaravelDebugHelper\Services\DebugSqlService;
+use WuJunze\LaravelDebugHelper\Services\LogProfile;
+use WuJunze\LaravelDebugHelper\Services\LogWriter;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -37,12 +39,15 @@ class ServiceProvider extends BaseServiceProvider
                     $logger->log($query, $bindings, $time);
                 });
             }
+
+            $this->app->singleton(LogProfile::class, config('debug_helper.http_logger.log_profile'));
+            $this->app->singleton(LogWriter::class, config('debug_helper.http_logger.log_writer'));
         }
     }
 
     protected function setConfig()
     {
-        $source = realpath(__DIR__ . '/../../config/debug_helper.php');
+        $source = realpath(__DIR__.'/../../config/debug_helper.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

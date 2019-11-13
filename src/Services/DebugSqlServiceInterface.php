@@ -11,6 +11,7 @@
 
 namespace WuJunze\LaravelDebugHelper\Services;
 
-interface DebugHelperInterface
+interface DebugSqlServiceInterface
 {
+    public function log($query, $bindings, $time);
 }

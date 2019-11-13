@@ -13,7 +13,7 @@ namespace WuJunze\LaravelDebugHelper\Services;
 
 use Illuminate\Support\Arr;
 
-class DebugSqlService implements DebugHelperInterface
+class DebugSqlService implements DebugSqlServiceInterface
 {
     /**
      * Application
