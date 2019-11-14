@@ -39,10 +39,10 @@ class ServiceProvider extends BaseServiceProvider
                     $logger->log($query, $bindings, $time);
                 });
             }
-
-            $this->app->singleton(LogProfile::class, config('debug_helper.http_logger.log_profile'));
-            $this->app->singleton(LogWriter::class, config('debug_helper.http_logger.log_writer'));
         }
+
+        $this->app->singleton(LogProfile::class, config('debug_helper.http_logger.log_profile'));
+        $this->app->singleton(LogWriter::class, config('debug_helper.http_logger.log_writer'));
     }
 
     protected function setConfig()
